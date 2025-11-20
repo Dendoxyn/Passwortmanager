@@ -1,5 +1,6 @@
 package htl.steyr.passwortmanager.controller;
 
+import htl.steyr.passwortmanager.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,28 +15,22 @@ public class LoginController {
     public Button loginButton;
     public Label errorLabel;
 
-
     public void loginButtonClicked(ActionEvent actionEvent) {
         // @Todo hash it and compare with saved hash
-        if(passwordField.getText().isEmpty()) {
+        if (passwordField.getText().isEmpty()) {
             errorLabel.setText("");
             errorLabel.setVisible(false);
             // Load the next page
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("main-page.fxml"));
-                Stage stage = new Stage();
-                stage.setTitle("Main Page");
-                stage.setScene(new Scene(root));
-                stage.show();
-
-                // Close current window
-                Stage current = (Stage) passwordField.getScene().getWindow();
-                current.close();
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
+
+            // Testing:
+            SceneManager.switchTo(SceneManager.mainPagePath);
+
             errorLabel.setText("Wrong Password!");
             errorLabel.setVisible(true);
         }
