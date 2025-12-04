@@ -10,7 +10,8 @@ import java.io.IOException;
 public class SceneManager {
 
     private static Stage primaryStage;
-    public static final String startupPagePath = "main-page.fxml";
+    public static final String startupPagePath = "master-password-view.fxml";
+    public static final String mainPagePath = "main-view.fxml";
 
 
 
@@ -24,6 +25,7 @@ public class SceneManager {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
+            primaryStage.setMaximized(true);
             primaryStage.setScene(scene);
             primaryStage.show();
 
