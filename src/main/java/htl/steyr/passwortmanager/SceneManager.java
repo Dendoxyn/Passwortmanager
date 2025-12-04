@@ -5,12 +5,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class SceneManager {
 
     private static Stage primaryStage;
-    public static final String startupPagePath = "master-password-view.fxml";
+    public static final String startupPagePath = "login-view.fxml";
     public static final String mainPagePath = "main-view.fxml";
 
 
@@ -29,7 +27,7 @@ public class SceneManager {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Konnte Scene nicht laden: " + fxmlPath, e);
         }
     }

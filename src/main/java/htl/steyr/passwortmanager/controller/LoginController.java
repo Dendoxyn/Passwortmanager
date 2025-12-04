@@ -12,23 +12,16 @@ import javafx.stage.Stage;
 
 public class LoginController {
     public PasswordField passwordField;
-    public Button loginButton;
     public Label errorLabel;
+    public Button loginBTN;
 
     public void loginButtonClicked(ActionEvent actionEvent) {
         // @Todo hash it and compare with saved hash
         if (passwordField.getText().isEmpty()) {
             errorLabel.setText("");
             errorLabel.setVisible(false);
-            // Load the next page
-            try {
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         } else {
-
-            // Testing:
             SceneManager.switchTo(SceneManager.mainPagePath);
 
             errorLabel.setText("Wrong Password!");
