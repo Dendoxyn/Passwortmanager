@@ -1,6 +1,6 @@
 package htl.steyr.passwortmanager.controller;
 
-import htl.steyr.passwortmanager.SceneManager;
+import htl.steyr.passwortmanager.utils.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
