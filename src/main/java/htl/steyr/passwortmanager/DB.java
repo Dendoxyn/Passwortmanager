@@ -11,6 +11,17 @@ public class DB {
     private static final String PASS = "password";
 
     public static Connection connect() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASS);
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASS);
+            System.out.println("✅ DATABASE CONNECTION OK");
+            return conn;
+        } catch (SQLException e) {
+            System.out.println("❌ DATABASE CONNECTION FAILED");
+            System.out.println("URL  = " + URL);
+            System.out.println("USER = " + USER);
+            e.printStackTrace();
+            throw e;
+        }
     }
+
 }

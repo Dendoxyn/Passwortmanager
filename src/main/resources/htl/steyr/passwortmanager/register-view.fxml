@@ -8,28 +8,28 @@
 <VBox spacing="20" alignment="CENTER"
       xmlns="http://javafx.com/javafx/22"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="htl.steyr.passwortmanager.controller.LoginController">
+      fx:controller="htl.steyr.passwortmanager.controller.RegisterController">
 
     <padding>
         <Insets top="30" right="40" bottom="30" left="40"/>
     </padding>
 
-    <Label text="Login">
+    <Label text="Register">
         <font>
             <Font name="Arial Bold" size="26"/>
         </font>
     </Label>
 
-    <TextField fx:id="loginUsernameField"
+    <TextField fx:id="registerUsernameField"
                promptText="Username"/>
 
-    <PasswordField fx:id="loginPasswordField"
+    <PasswordField fx:id="registerPasswordField"
                    promptText="Master Password"/>
 
-    <Label fx:id="errorLabel"
-           visible="false"/>
+    <PasswordField fx:id="confirmPasswordField"
+                   promptText="Confirm Password"/>
 
-    <Button text="Login"
-            onAction="#loginButtonClicked"/>
+    <Button text="Register"
+            onAction="#registerButtonClicked"/>
 
 </VBox>

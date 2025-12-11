@@ -3,7 +3,9 @@ package htl.steyr.passwortmanager.model;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 
+@Setter
 @Getter
 @RequiredArgsConstructor
 public class Password {
@@ -19,7 +21,8 @@ public class Password {
     @NonNull
     private final byte[] encryptedPwd;
 
-    private final String note;
+    @NonNull
+    private final String note; // Just use an empty string "" if no note is given
 
     @NonNull
     private final PasswordTag tag;     // ENUM

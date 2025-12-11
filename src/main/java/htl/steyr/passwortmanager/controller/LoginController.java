@@ -8,24 +8,24 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class LoginController {
-    public PasswordField passwordField;
+    public PasswordField loginPasswordField;
+    public TextField loginUsernameField;
     public Label errorLabel;
-    public Button loginBTN;
 
     public void loginButtonClicked(ActionEvent actionEvent) {
         // @Todo hash it and compare with saved hash
-        if (passwordField.getText().isEmpty()) {
+        if (loginPasswordField.getText().isEmpty()) {
             errorLabel.setText("");
             errorLabel.setVisible(false);
-
-        } else {
             SceneManager.switchTo(SceneManager.mainPagePath);
-
+        } else {
             errorLabel.setText("Wrong Password!");
             errorLabel.setVisible(true);
         }
     }
+
 }
