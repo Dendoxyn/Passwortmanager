@@ -1,4 +1,4 @@
-package htl.steyr.passwortmanager;
+package htl.steyr.passwortmanager.utils;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -1,4 +1,4 @@
-package htl.steyr.passwortmanager;
+package htl.steyr.passwortmanager.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

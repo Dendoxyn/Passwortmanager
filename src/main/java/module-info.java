@@ -10,4 +10,6 @@ module htl.steyr.passwortmanager {
     exports htl.steyr.passwortmanager;
     exports htl.steyr.passwortmanager.controller;
     opens htl.steyr.passwortmanager.controller to javafx.fxml;
+    exports htl.steyr.passwortmanager.utils;
+    opens htl.steyr.passwortmanager.utils to javafx.fxml;
 }
