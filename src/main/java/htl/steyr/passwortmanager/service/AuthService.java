@@ -23,6 +23,7 @@ public class AuthService {
         if (!password.equals(confirmPassword))
             throw new IllegalArgumentException("Passwords do not match");
 
+        // For testing, change later!
         if (password.length() < 0)
             throw new IllegalArgumentException("Password must be at least 8 characters");
 

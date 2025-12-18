@@ -1,7 +1,7 @@
 CREATE TABLE `User` (
                         userId INT AUTO_INCREMENT PRIMARY KEY,
                         username VARCHAR(100) NOT NULL UNIQUE,
-                        hashedPwd VARCHAR(255) NOT NULL
+                        hashedPwd VARCHAR(512) NOT NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE `Group` (
@@ -37,7 +37,7 @@ CREATE TABLE Password (
                           passwordId INT AUTO_INCREMENT PRIMARY KEY,
                           website_app VARCHAR(255) NOT NULL,
                           loginName VARCHAR(255) NOT NULL,
-                          encryptedPwd VARBINARY(255) NOT NULL,
+                          encryptedPwd VARBINARY(512) NOT NULL,
                           note TEXT,
 
                           tag ENUM(
@@ -67,3 +67,6 @@ CREATE TABLE Password (
                                   REFERENCES `Group`(groupId)
                                   ON DELETE SET NULL
 ) ENGINE=InnoDB;
+
+CREATE INDEX idx_password_user ON Password(userId);
+CREATE INDEX idx_password_group ON Password(groupId);
