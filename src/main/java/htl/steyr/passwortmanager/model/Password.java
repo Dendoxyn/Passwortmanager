@@ -10,6 +10,29 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class Password {
 
+    public Password(
+            @NonNull String websiteApp,
+            @NonNull String loginName,
+            @NonNull byte[] encryptedPwd,
+            @NonNull String note,
+            @NonNull PasswordTag tag,
+            @NonNull SecurityLevel security,
+            int userId,
+            Integer groupId
+    ) {
+        this(
+                0,
+                websiteApp,
+                loginName,
+                encryptedPwd,
+                note,
+                tag,
+                security,
+                userId,
+                groupId
+        );
+    }
+
     private final int passwordId;
 
     @NonNull

@@ -1,6 +1,6 @@
 package htl.steyr.passwortmanager.dao;
 
-import htl.steyr.passwortmanager.DB;
+import htl.steyr.passwortmanager.utils.DB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

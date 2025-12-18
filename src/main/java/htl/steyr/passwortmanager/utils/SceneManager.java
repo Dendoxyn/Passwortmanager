@@ -19,7 +19,10 @@ public class SceneManager {
 
     public static void switchTo(String fxmlPath) {
         try {
-            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(
+                    SceneManager.class.getResource("/htl/steyr/passwortmanager/" + fxmlPath)
+            );
+
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
