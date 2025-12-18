@@ -19,7 +19,7 @@ public class MainController {
             errorLabel.setVisible(false);
         } else {
             TODO:
-            SceneManager.switchTo(SceneManager.startupPagePath);
+            SceneManager.switchTo(SceneManager.mainView);
         }
     }
 }

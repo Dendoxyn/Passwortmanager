@@ -1,10 +1,11 @@
 package htl.steyr.passwortmanager.dao;
 
-import htl.steyr.passwortmanager.DB;
+import htl.steyr.passwortmanager.utils.DB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserDAO {
 
@@ -40,4 +41,48 @@ public class UserDAO {
             return rs.next();
         }
     }
+    public String userLogin(String username, String hashedPassword) throws Exception{
+
+        String sql = """
+                
+                SELECT 1 FROM User WHERE username = ? 
+                
+                """;
+
+        try (Connection conn = DB.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, username);
+
+            ResultSet rs = stmt.executeQuery();
+        }
+
+
+        return "ok";
+    }
+
+    public String getPasswordHashByUsername(String username) throws Exception {
+
+        String sql = """
+        SELECT hashedPwd
+        FROM User
+        WHERE username = ?
+    """;
+
+        try (Connection conn = DB.connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, username);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("hashedPwd");
+                }
+            }
+        }
+
+        return null;
+    }
+
+
 }

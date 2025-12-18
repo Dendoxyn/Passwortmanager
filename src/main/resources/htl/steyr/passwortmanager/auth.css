@@ -1,0 +1,71 @@
+.root {
+    -fx-background-color: #0f172a; /* dark slate */
+}
+
+.auth-tabs {
+    -fx-background-color: transparent;
+}
+
+.tab-pane .tab-header-area {
+    -fx-background-color: #020617;
+}
+
+.tab {
+    -fx-background-color: transparent;
+    -fx-padding: 10 20;
+}
+
+.tab:selected {
+    -fx-background-color: #1e293b;
+}
+
+.tab-label {
+    -fx-text-fill: #cbd5f5;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.auth-card {
+    -fx-background-color: #020617;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #1e293b;
+}
+
+.auth-title {
+    -fx-text-fill: #e5e7eb;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.auth-input {
+    -fx-pref-width: 260;
+    -fx-background-color: #020617;
+    -fx-border-color: #334155;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #f8fafc;
+    -fx-prompt-text-fill: #64748b;
+    -fx-padding: 10 12;
+}
+
+.auth-input:focused {
+    -fx-border-color: #6366f1;
+}
+
+.auth-button {
+    -fx-pref-width: 260;
+    -fx-background-color: #6366f1;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10;
+}
+
+.auth-button:hover {
+    -fx-background-color: #4f46e5;
+}
+
+.auth-error {
+    -fx-text-fill: #ef4444;
+    -fx-font-size: 12px;
+}

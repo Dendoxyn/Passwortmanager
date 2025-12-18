@@ -3,33 +3,36 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox spacing="20" alignment="CENTER"
-      xmlns="http://javafx.com/javafx/22"
+<VBox xmlns="http://javafx.com/javafx/22"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="htl.steyr.passwortmanager.controller.LoginController">
+      fx:controller="htl.steyr.passwortmanager.controller.LoginController"
+      spacing="20"
+      alignment="CENTER"
+      styleClass="auth-card">
 
     <padding>
-        <Insets top="30" right="40" bottom="30" left="40"/>
+        <Insets top="32" right="40" bottom="32" left="40"/>
     </padding>
 
-    <Label text="Login">
-        <font>
-            <Font name="Arial Bold" size="26"/>
-        </font>
-    </Label>
+    <Label text="Welcome back"
+           styleClass="auth-title"/>
 
     <TextField fx:id="loginUsernameField"
-               promptText="Username"/>
+               promptText="Username"
+               styleClass="auth-input"/>
 
     <PasswordField fx:id="loginPasswordField"
-                   promptText="Master Password"/>
+                   promptText="Master Password"
+                   styleClass="auth-input"/>
 
     <Label fx:id="errorLabel"
-           visible="false"/>
+           managed="false"
+           visible="false"
+           styleClass="auth-error"/>
 
     <Button text="Login"
-            onAction="#loginButtonClicked"/>
+            onAction="#loginButtonClicked"
+            styleClass="auth-button"/>
 
 </VBox>

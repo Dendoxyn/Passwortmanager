@@ -12,23 +12,49 @@ public class AuthService {
                          String confirmPassword) throws Exception {
 
         if (username == null || username.isBlank())
-            throw new Exception("Username cannot be empty");
+            throw new IllegalArgumentException("Username cannot be empty");
 
         if (password == null || password.isBlank())
-            throw new Exception("Password cannot be empty");
+            throw new IllegalArgumentException("Password cannot be empty");
+
+        if (confirmPassword == null || confirmPassword.isBlank())
+            throw new IllegalArgumentException("Confirm password cannot be empty");
 
         if (!password.equals(confirmPassword))
-            throw new Exception("Passwords do not match");
+            throw new IllegalArgumentException("Passwords do not match");
 
         if (password.length() < 0)
-            throw new Exception("Password must be at least 8 characters");
+            throw new IllegalArgumentException("Password must be at least 8 characters");
 
         if (userDAO.usernameExists(username))
-            throw new Exception("Username already taken");
+            throw new IllegalArgumentException("Username already taken");
 
-        String hashedPwd = Argon2Util.hash(password.toCharArray());
+        String hash = Argon2Util.hash(password.toCharArray());
 
-        // 4️⃣ Insert user into DB
-        userDAO.insertUser(username, hashedPwd);
+        userDAO.insertUser(username, hash);
     }
+
+
+    public boolean login(String username, String password) throws Exception {
+
+        if (username == null || username.isBlank())
+            throw new IllegalArgumentException("Username cannot be empty");
+
+        if (password == null || password.isBlank())
+            throw new IllegalArgumentException("Password cannot be empty");
+
+        String storedHash = userDAO.getPasswordHashByUsername(username);
+
+        if (storedHash == null)
+            return false;
+
+
+        // Checks both hashes and verifies them if they're the same ones
+        return Argon2Util.verify(
+                storedHash,
+                password.toCharArray()
+        );
+    }
+
+
 }

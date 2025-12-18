@@ -3,33 +3,40 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox spacing="20" alignment="CENTER"
-      xmlns="http://javafx.com/javafx/22"
+<VBox xmlns="http://javafx.com/javafx/22"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="htl.steyr.passwortmanager.controller.RegisterController">
+      fx:controller="htl.steyr.passwortmanager.controller.RegisterController"
+      spacing="20"
+      alignment="CENTER"
+      styleClass="auth-card">
 
     <padding>
-        <Insets top="30" right="40" bottom="30" left="40"/>
+        <Insets top="32" right="40" bottom="32" left="40"/>
     </padding>
 
-    <Label text="Register">
-        <font>
-            <Font name="Arial Bold" size="26"/>
-        </font>
-    </Label>
+    <Label text="Create account"
+           styleClass="auth-title"/>
 
     <TextField fx:id="registerUsernameField"
-               promptText="Username"/>
+               promptText="Username"
+               styleClass="auth-input"/>
 
     <PasswordField fx:id="registerPasswordField"
-                   promptText="Master Password"/>
+                   promptText="Master Password"
+                   styleClass="auth-input"/>
 
     <PasswordField fx:id="confirmPasswordField"
-                   promptText="Confirm Password"/>
+                   promptText="Confirm Password"
+                   styleClass="auth-input"/>
+
+    <Label fx:id="errorLabel"
+           visible="false"
+           managed="false"
+           styleClass="auth-error"/>
 
     <Button text="Register"
-            onAction="#registerButtonClicked"/>
+            onAction="#registerButtonClicked"
+            styleClass="auth-button"/>
 
 </VBox>
