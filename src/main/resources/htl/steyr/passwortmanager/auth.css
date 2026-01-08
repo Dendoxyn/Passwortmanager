@@ -69,3 +69,37 @@
     -fx-text-fill: #ef4444;
     -fx-font-size: 12px;
 }
+
+.sidebar {
+    -fx-background-color: #1f2933;
+}
+
+.logo {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #d1d5db;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.nav-btn:hover {
+    -fx-background-color: #374151;
+}
+
+.title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.fab {
+    -fx-background-radius: 50%;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-font-size: 22px;
+}
+

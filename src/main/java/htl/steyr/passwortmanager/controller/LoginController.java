@@ -34,7 +34,7 @@ public class LoginController {
             return;
         }
 
-        SceneManager.switchTo(SceneManager.mainView);
+        SceneManager.switchTo("main-view.fxml");
     }
 
     private void showError(String message) {

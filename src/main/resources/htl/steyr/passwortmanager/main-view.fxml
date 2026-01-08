@@ -1,11 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="320.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="htl.steyr.passwortmanager.controller.MainController">
-   <ListView layoutX="46.0" layoutY="100.0" prefHeight="200.0" prefWidth="508.0"/>
-   <TextField layoutX="46.0" layoutY="14.0" prefHeight="26.0" prefWidth="508.0" promptText="Search"/>
-</AnchorPane>
+
+   <!-- ================= SIDEBAR ================= -->
+   <left>
+      <VBox spacing="15" styleClass="sidebar">
+         <padding>
+            <Insets top="20" left="20" right="20"/>
+         </padding>
+
+         <Label text="DMani2Go" styleClass="logo"/>
+
+         <Separator/>
+
+         <Button text="🔐 Passwörter" styleClass="nav-btn"/>
+         <Button text="📝 Notizen" styleClass="nav-btn"/>
+         <Button text="💳 Wallet" styleClass="nav-btn"/>
+         <Button text="⚙ Einstellungen" styleClass="nav-btn"/>
+
+      </VBox>
+   </left>
+
+   <!-- ================= CENTER ================= -->
+   <center>
+      <VBox spacing="15">
+         <padding>
+            <Insets top="20" left="20" right="20" bottom="20"/>
+         </padding>
+
+         <!-- Header -->
+         <HBox spacing="10">
+            <Label text="Passwörter" styleClass="title"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <TextField fx:id="searchField"
+                       promptText="Suchen..."
+                       prefWidth="250"/>
+         </HBox>
+
+         <!-- Table -->
+         <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
+
+            <columns>
+               <TableColumn fx:id="hostCol" text="Name" prefWidth="300"/>
+               <TableColumn fx:id="userCol" text="Benutzer" prefWidth="200"/>
+               <TableColumn fx:id="pwCol" text="Passwort" prefWidth="200"/>
+               <TableColumn fx:id="actionCol" text="" prefWidth="80"/>
+            </columns>
+
+         </TableView>
+
+         <!-- Floating Add Button -->
+         <HBox alignment="CENTER_RIGHT">
+            <Button text="＋" styleClass="fab"/>
+         </HBox>
+
+      </VBox>
+   </center>
+
+</BorderPane>

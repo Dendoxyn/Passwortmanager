@@ -7,33 +7,22 @@ public class AuthService {
 
     private final UserDAO userDAO = new UserDAO();
 
-    public void register(String username,
-                         String password,
-                         String confirmPassword) throws Exception {
+    public boolean register(String username,
+                            String password,
+                            String confirmPassword) throws Exception {
 
-        if (username == null || username.isBlank())
-            throw new IllegalArgumentException("Username cannot be empty");
-
-        if (password == null || password.isBlank())
-            throw new IllegalArgumentException("Password cannot be empty");
-
-        if (confirmPassword == null || confirmPassword.isBlank())
-            throw new IllegalArgumentException("Confirm password cannot be empty");
-
-        if (!password.equals(confirmPassword))
-            throw new IllegalArgumentException("Passwords do not match");
-
-        // For testing, change later!
-        if (password.length() < 0)
-            throw new IllegalArgumentException("Password must be at least 8 characters");
-
-        if (userDAO.usernameExists(username))
-            throw new IllegalArgumentException("Username already taken");
+        if (username == null || username.isBlank()) return false;
+        if (password == null || password.isBlank()) return false;
+        if (confirmPassword == null || confirmPassword.isBlank()) return false;
+        if (!password.equals(confirmPassword)) return false;
+        if (password.length() < 8) return false;
+        if (userDAO.usernameExists(username)) return false;
 
         String hash = Argon2Util.hash(password.toCharArray());
-
         userDAO.insertUser(username, hash);
+        return true;
     }
+
 
 
     public boolean login(String username, String password) throws Exception {

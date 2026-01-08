@@ -1,25 +1,81 @@
 package htl.steyr.passwortmanager.controller;
 
-import htl.steyr.passwortmanager.utils.SceneManager;
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
+import htl.steyr.passwortmanager.dao.PasswordDAO;
+import htl.steyr.passwortmanager.model.Password;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
 
 public class MainController {
-    public PasswordField passwordField;
-    public Button loginButton;
-    public Label errorLabel;
+
+    @FXML private TableView<Password> tableView;
+    @FXML private TableColumn<Password, String> hostCol;
+    @FXML private TableColumn<Password, String> userCol;
+    @FXML private TableColumn<Password, String> pwCol;
+    @FXML private TableColumn<Password, Void> actionCol;
+
+    private final PasswordDAO passwordDAO = new PasswordDAO();
+
+    // TODO: später aus Session/UserContext holen
+    private final int currentUserId = 1;
+
+    @FXML
+    public void initialize() {
 
 
-    public void loginButtonClicked(ActionEvent actionEvent) {
-        // @Todo hash it and compare with saved hash
-        if(passwordField.getText().isEmpty()) {
-            errorLabel.setText("");
-            errorLabel.setVisible(false);
-        } else {
-            TODO:
-            SceneManager.switchTo(SceneManager.mainView);
+    //    hostCol.setCellValueFactory(p -> p.getValue().websiteAppProperty());
+      //  userCol.setCellValueFactory(p -> p.getValue().loginNameProperty());
+
+        // Passwort immer maskiert anzeigen
+     //   pwCol.setCellValueFactory(p -> p.getValue().dummyPasswordProperty());
+        pwCol.setCellFactory(col -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? null : "••••••••");
+            }
+        });
+
+        // Eye-Button-Spalte
+        actionCol.setCellFactory(col -> new TableCell<>() {
+
+            private final Button eyeBtn = new Button("👁");
+
+            {
+                eyeBtn.setOnAction(e -> {
+                    Password pw = getTableView().getItems().get(getIndex());
+
+                    // hier nur zum Testen – KEIN Klartext speichern!
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Passwort");
+                    alert.setHeaderText(pw.getWebsiteApp());
+                    alert.setContentText("[ENT­SCHLÜS­SEL­TES PASSWORT]");
+                    alert.showAndWait();
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : eyeBtn);
+            }
+        });
+
+        loadPasswords();
+    }
+
+    private void loadPasswords() {
+        try {
+            tableView.getItems().setAll(
+                    passwordDAO.findPrivatePasswords(currentUserId)
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Passwörter konnten nicht geladen werden");
         }
+    }
+
+    private void showError(String msg) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK);
+        alert.showAndWait();
     }
 }

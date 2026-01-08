@@ -8,10 +8,6 @@ import javafx.stage.Stage;
 public class SceneManager {
 
     private static Stage primaryStage;
-    public static final String startupPagePath = "login-view.fxml";
-    public static final String mainPagePath = "main-view.fxml";
-
-
 
     public static void init(Stage stage) {
         primaryStage = stage;
