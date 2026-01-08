@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
@@ -51,7 +50,7 @@
                <TableColumn fx:id="hostCol" text="Name" prefWidth="300"/>
                <TableColumn fx:id="userCol" text="Benutzer" prefWidth="200"/>
                <TableColumn fx:id="pwCol" text="Passwort" prefWidth="200"/>
-               <TableColumn fx:id="actionCol" text="" prefWidth="80"/>
+               <TableColumn fx:id="actionCol"/>
             </columns>
 
          </TableView>

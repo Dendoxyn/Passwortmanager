@@ -3,48 +3,55 @@ package htl.steyr.passwortmanager.controller;
 import htl.steyr.passwortmanager.service.AuthService;
 import htl.steyr.passwortmanager.utils.SceneManager;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginController {
 
-    public TextField loginUsernameField;
-    public PasswordField loginPasswordField;
-    public Label errorLabel;
+    @FXML private TextField loginUsernameField;
+    @FXML private PasswordField loginPasswordField;
+    @FXML private Label errorLabel;
 
     private final AuthService authService = new AuthService();
 
-    public void loginButtonClicked(ActionEvent event) throws Exception {
+    @FXML
+    public void loginClicked(ActionEvent event) {
 
         hideError();
 
-        String username = loginUsernameField.getText().trim();
+        String username = loginUsernameField.getText();
         String password = loginPasswordField.getText();
 
-        if (username.isEmpty() || password.isEmpty()) {
+        if (username == null || username.isBlank()
+                || password == null || password.isBlank()) {
             showError("Username and password required");
             return;
         }
 
-        boolean success = authService.login(username, password);
+        try {
+            boolean success = authService.login(username.trim(), password);
 
-        if (!success) {
-            showError("Invalid username or password");
-            return;
+            if (!success) {
+                showError("Invalid username or password");
+                return;
+            }
+
+            SceneManager.switchTo("main-view.fxml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Login failed – internal error");
         }
-
-        SceneManager.switchTo("main-view.fxml");
     }
 
     private void showError(String message) {
         errorLabel.setText(message);
         errorLabel.setVisible(true);
-        errorLabel.setManaged(true);
     }
 
     private void hideError() {
         errorLabel.setVisible(false);
-        errorLabel.setManaged(false);
     }
 }

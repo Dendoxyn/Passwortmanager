@@ -3,6 +3,8 @@ package htl.steyr.passwortmanager.service;
 import htl.steyr.passwortmanager.dao.UserDAO;
 import htl.steyr.passwortmanager.security.Argon2Util;
 
+import java.util.Arrays;
+
 public class AuthService {
 
     private final UserDAO userDAO = new UserDAO();
@@ -16,12 +18,19 @@ public class AuthService {
         if (confirmPassword == null || confirmPassword.isBlank()) return false;
         if (!password.equals(confirmPassword)) return false;
         if (password.length() < 8) return false;
+
+        username = username.trim();
+
         if (userDAO.usernameExists(username)) return false;
 
-        String hash = Argon2Util.hash(password.toCharArray());
+        char[] pw = password.toCharArray();
+        String hash = Argon2Util.hash(pw);
+        Arrays.fill(pw, '\0');   // Passwort aus RAM löschen
+
         userDAO.insertUser(username, hash);
         return true;
     }
+
 
 
 

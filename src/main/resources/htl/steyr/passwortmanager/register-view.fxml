@@ -7,30 +7,30 @@
 <VBox xmlns="http://javafx.com/javafx/22"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="htl.steyr.passwortmanager.controller.RegisterController"
-      spacing="20"
+      spacing="18"
       alignment="CENTER"
       styleClass="auth-card">
 
     <padding>
-        <Insets top="32" right="40" bottom="32" left="40"/>
+        <Insets top="36" right="42" bottom="36" left="42"/>
     </padding>
 
-    <Label text="Create account"
-           styleClass="auth-title"/>
+    <Label text="Account erstellen" styleClass="auth-title"/>
 
     <TextField fx:id="registerUsernameField"
                promptText="Username"
                styleClass="auth-input"/>
 
     <PasswordField fx:id="registerPasswordField"
-                   promptText="Master Password"
+                   promptText="Master-Passwort"
                    styleClass="auth-input"/>
 
     <PasswordField fx:id="confirmPasswordField"
-                   promptText="Confirm Password"
+                   promptText="Passwort bestätigen"
                    styleClass="auth-input"/>
 
-    <Button text="Register"
+    <Button text="Registrieren"
+            defaultButton="true"
             onAction="#registerButtonClicked"
             styleClass="auth-button"/>
 
@@ -39,3 +39,4 @@
            styleClass="auth-error"/>
 
 </VBox>
+

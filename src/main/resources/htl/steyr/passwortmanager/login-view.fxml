@@ -3,36 +3,34 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-
 <VBox xmlns="http://javafx.com/javafx/22"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="htl.steyr.passwortmanager.controller.LoginController"
-      spacing="20"
+      spacing="18"
       alignment="CENTER"
       styleClass="auth-card">
 
     <padding>
-        <Insets top="32" right="40" bottom="32" left="40"/>
+        <Insets top="36" right="42" bottom="36" left="42"/>
     </padding>
 
-    <Label text="Welcome back"
-           styleClass="auth-title"/>
+    <Label text="Login" styleClass="auth-title"/>
 
-    <TextField fx:id="loginUsernameField"
+    <TextField fx:id="usernameField"
                promptText="Username"
                styleClass="auth-input"/>
 
-    <PasswordField fx:id="loginPasswordField"
-                   promptText="Master Password"
+    <PasswordField fx:id="passwordField"
+                   promptText="Passwort"
                    styleClass="auth-input"/>
 
+    <Button text="Login"
+            defaultButton="true"
+            onAction="#loginClicked"
+            styleClass="auth-button"/>
+
     <Label fx:id="errorLabel"
-           managed="false"
            visible="false"
            styleClass="auth-error"/>
-
-    <Button text="Login"
-            onAction="#loginButtonClicked"
-            styleClass="auth-button"/>
 
 </VBox>

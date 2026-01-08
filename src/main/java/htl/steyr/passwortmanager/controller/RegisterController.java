@@ -3,36 +3,66 @@ package htl.steyr.passwortmanager.controller;
 import htl.steyr.passwortmanager.service.AuthService;
 import htl.steyr.passwortmanager.utils.SceneManager;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class RegisterController {
-    public TextField registerUsernameField;
-    public PasswordField registerPasswordField;
-    public PasswordField confirmPasswordField;
-    public Label errorLabel;
 
-    public void registerButtonClicked(ActionEvent actionEvent) {
-        AuthService authService = new AuthService();
+    @FXML private TextField registerUsernameField;
+    @FXML private PasswordField registerPasswordField;
+    @FXML private PasswordField confirmPasswordField;
+    @FXML private Label errorLabel;
 
-        errorLabel.setText("");
-        errorLabel.setVisible(true);
+    private final AuthService authService = new AuthService();
+
+    @FXML
+    public void registerButtonClicked(ActionEvent event) {
+
+        hideError();
+
+        String username = registerUsernameField.getText();
+        String password = registerPasswordField.getText();
+        String confirm = confirmPasswordField.getText();
+
+        if (username == null || username.isBlank()
+                || password == null || password.isBlank()
+                || confirm == null || confirm.isBlank()) {
+            showError("All fields are required");
+            return;
+        }
 
         try {
-            boolean success = authService.register(registerUsernameField.getText(), registerPasswordField.getText(), confirmPasswordField.getText());
+            boolean success = authService.register(username.trim(), password, confirm);
 
-            if (success) {
-                errorLabel.setText("User " + registerUsernameField.getText() + " successfully registered!");
-                errorLabel.setStyle("-fx-text-fill: green;");
-                SceneManager.switchTo("main-view.fxml");
-            } else{
-                errorLabel.setText("Error");
-                errorLabel.setStyle("-fx-text-fill: RED");
+            if (!success) {
+                showError("Registration failed");
+                return;
             }
+
+            showSuccess("Account created successfully");
+            SceneManager.switchTo("main-view.fxml");
 
         } catch (Exception e) {
             e.printStackTrace();
+            showError("Internal error during registration");
         }
+    }
+
+    private void showError(String message) {
+        errorLabel.setText(message);
+        errorLabel.setStyle("-fx-text-fill: #ef4444;");
+        errorLabel.setVisible(true);
+    }
+
+    private void showSuccess(String message) {
+        errorLabel.setText(message);
+        errorLabel.setStyle("-fx-text-fill: #22c55e;");
+        errorLabel.setVisible(true);
+    }
+
+    private void hideError() {
+        errorLabel.setVisible(false);
     }
 }
