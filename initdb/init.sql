@@ -1,7 +1,8 @@
 CREATE TABLE `User` (
                         userId INT AUTO_INCREMENT PRIMARY KEY,
                         username VARCHAR(100) NOT NULL UNIQUE,
-                        hashedPwd VARCHAR(512) NOT NULL
+                        hashedPwd VARCHAR(512) NOT NULL,
+                        encryptionSalt BLOB NOT NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE `Group` (

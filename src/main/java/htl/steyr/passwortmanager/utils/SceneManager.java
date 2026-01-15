@@ -1,5 +1,7 @@
 package htl.steyr.passwortmanager.utils;
 
+import htl.steyr.passwortmanager.controller.AddPasswordController;
+import htl.steyr.passwortmanager.security.UserContext;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -68,4 +70,41 @@ public class SceneManager {
             throw new RuntimeException("Konnte Popup nicht laden: " + fxmlPath, e);
         }
     }
+    public static <T> T showPopupWithController(String fxmlPath, String title) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    Objects.requireNonNull(
+                            SceneManager.class.getResource("/htl/steyr/passwortmanager/" + fxmlPath)
+                    )
+            );
+
+            Parent root = loader.load();
+
+            Stage popup = new Stage();
+            popup.initOwner(stage);
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.setResizable(false);
+            popup.setTitle(title);
+            popup.setScene(new Scene(root));
+
+            Object controller = loader.getController();
+
+            // Inject stage + user info if supported
+            if (controller instanceof AddPasswordController c) {
+                c.setStage(popup);
+                c.setUserId(UserContext.getUserId());
+                c.setGroupId(null);
+            }
+
+            popup.showAndWait();
+
+            return (T) controller;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Konnte Popup nicht laden: " + fxmlPath, e);
+        }
+    }
+
+
 }

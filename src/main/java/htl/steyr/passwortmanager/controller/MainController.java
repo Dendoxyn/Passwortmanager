@@ -6,7 +6,12 @@ import htl.steyr.passwortmanager.security.UserContext;
 import htl.steyr.passwortmanager.utils.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class MainController {
 
@@ -83,6 +88,28 @@ public class MainController {
     }
 
     public void createNewPassword(ActionEvent event) {
-        SceneManager.showPopup("add-password.fxml", "Add new Password", true);
+
+        try {
+            AddPasswordController ctrl =
+                    SceneManager.showPopupWithController("add-password.fxml", "Add new Password");
+
+
+            Password result = ctrl.getPassword();
+
+            System.out.println("Current userId = " + UserContext.getUserId());
+            System.out.println("Password userId = " + result.getUserId());
+
+            if (result != null) {
+                passwordDAO.insert(result);
+                loadPasswords();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Password could not be saved");
+        }
     }
+
+
+
 }
