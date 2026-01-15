@@ -8,7 +8,9 @@
       fx:controller="htl.steyr.passwortmanager.controller.LoginController"
       spacing="18"
       alignment="CENTER"
-      styleClass="auth-card">
+      styleClass="auth-card"
+      onKeyPressed="#onEnterPressed">
+
 
     <padding>
         <Insets top="36" right="42" bottom="36" left="42"/>
@@ -16,11 +18,11 @@
 
     <Label text="Login" styleClass="auth-title"/>
 
-    <TextField fx:id="usernameField"
+    <TextField fx:id="loginUsernameField"
                promptText="Username"
                styleClass="auth-input"/>
 
-    <PasswordField fx:id="passwordField"
+    <PasswordField fx:id="loginPasswordField"
                    promptText="Passwort"
                    styleClass="auth-input"/>
 

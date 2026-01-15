@@ -2,11 +2,14 @@ package htl.steyr.passwortmanager.controller;
 
 import htl.steyr.passwortmanager.service.AuthService;
 import htl.steyr.passwortmanager.utils.SceneManager;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class LoginController {
 
@@ -15,6 +18,13 @@ public class LoginController {
     @FXML private Label errorLabel;
 
     private final AuthService authService = new AuthService();
+
+
+    @FXML
+    public void initialize() {
+        Platform.runLater(() -> loginUsernameField.requestFocus());
+    }
+
 
     @FXML
     public void loginClicked(ActionEvent event) {
@@ -53,5 +63,11 @@ public class LoginController {
 
     private void hideError() {
         errorLabel.setVisible(false);
+    }
+
+    public void onEnterPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            loginClicked(null);
+        }
     }
 }

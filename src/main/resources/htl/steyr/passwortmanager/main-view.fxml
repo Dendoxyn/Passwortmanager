@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="htl.steyr.passwortmanager.controller.MainController">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="htl.steyr.passwortmanager.controller.MainController">
 
    <!-- ================= SIDEBAR ================= -->
    <left>
       <VBox spacing="15" styleClass="sidebar">
          <padding>
-            <Insets top="20" left="20" right="20"/>
+            <Insets left="20" right="20" top="20" />
          </padding>
 
-         <Label text="DMani2Go" styleClass="logo"/>
+         <Label styleClass="logo" text="DMani2Go" />
 
-         <Separator/>
+         <Separator />
 
-         <Button text="🔐 Passwörter" styleClass="nav-btn"/>
-         <Button text="📝 Notizen" styleClass="nav-btn"/>
-         <Button text="💳 Wallet" styleClass="nav-btn"/>
-         <Button text="⚙ Einstellungen" styleClass="nav-btn"/>
+         <Button styleClass="nav-btn" text="🔐 Passwörter" />
+         <Button styleClass="nav-btn" text="⚙ Einstellungen" />
 
       </VBox>
    </left>
@@ -29,35 +35,33 @@
    <center>
       <VBox spacing="15">
          <padding>
-            <Insets top="20" left="20" right="20" bottom="20"/>
+            <Insets bottom="20" left="20" right="20" top="20" />
          </padding>
 
          <!-- Header -->
          <HBox spacing="10">
-            <Label text="Passwörter" styleClass="title"/>
+            <Label styleClass="title" text="Passwörter" />
 
-            <Region HBox.hgrow="ALWAYS"/>
+            <Region HBox.hgrow="ALWAYS" />
 
-            <TextField fx:id="searchField"
-                       promptText="Suchen..."
-                       prefWidth="250"/>
+            <TextField fx:id="searchField" prefWidth="250" promptText="Suchen..." />
          </HBox>
 
          <!-- Table -->
          <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
 
             <columns>
-               <TableColumn fx:id="hostCol" text="Name" prefWidth="300"/>
-               <TableColumn fx:id="userCol" text="Benutzer" prefWidth="200"/>
-               <TableColumn fx:id="pwCol" text="Passwort" prefWidth="200"/>
-               <TableColumn fx:id="actionCol"/>
+               <TableColumn fx:id="hostCol" prefWidth="300" text="Name" />
+               <TableColumn fx:id="userCol" prefWidth="200" text="Benutzer" />
+               <TableColumn fx:id="pwCol" prefWidth="200" text="Passwort" />
+               <TableColumn fx:id="actionCol" />
             </columns>
 
          </TableView>
 
          <!-- Floating Add Button -->
          <HBox alignment="CENTER_RIGHT">
-            <Button text="＋" styleClass="fab"/>
+            <Button onAction="#createNewPassword" styleClass="fab" text="＋" />
          </HBox>
 
       </VBox>

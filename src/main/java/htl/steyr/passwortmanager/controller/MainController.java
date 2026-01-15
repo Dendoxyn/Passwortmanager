@@ -2,6 +2,8 @@ package htl.steyr.passwortmanager.controller;
 
 import htl.steyr.passwortmanager.dao.PasswordDAO;
 import htl.steyr.passwortmanager.model.Password;
+import htl.steyr.passwortmanager.utils.SceneManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -77,5 +79,9 @@ public class MainController {
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
         alert.showAndWait();
+    }
+
+    public void createNewPassword(ActionEvent event) {
+        SceneManager.showPopup("add-password.fxml", "Add new Password", true);
     }
 }
