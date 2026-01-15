@@ -43,7 +43,7 @@
 
             <Region HBox.hgrow="ALWAYS" />
 
-            <TextField fx:id="searchField" prefWidth="250" promptText="Suchen..." />
+            <TextField fx:id="searchTF" prefWidth="250" promptText="Suchen..." />
          </HBox>
 
          <!-- Table -->

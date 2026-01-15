@@ -5,6 +5,10 @@ import htl.steyr.passwortmanager.model.Password;
 import htl.steyr.passwortmanager.security.CryptoService;
 import htl.steyr.passwortmanager.security.UserContext;
 import htl.steyr.passwortmanager.utils.SceneManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -22,6 +26,11 @@ public class MainController {
     @FXML private TableColumn<Password, String> tagCol;
     @FXML private TableColumn<Password, String> secCol;
     @FXML private TableColumn<Password, Void> actionCol;
+    @FXML private TextField searchTF;
+
+    private final ObservableList<Password> masterData = FXCollections.observableArrayList();
+    private FilteredList<Password> filteredData;
+
 
     private final PasswordDAO passwordDAO = new PasswordDAO();
 
@@ -119,14 +128,34 @@ public class MainController {
             }
         });
 
+        filteredData = new FilteredList<>(masterData, p -> true);
+
+        SortedList<Password> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+        tableView.setItems(sortedData);
+
+        searchTF.textProperty().addListener((obs, oldVal, newVal) -> {
+            String filter = newVal.toLowerCase().trim();
+
+            filteredData.setPredicate(pw -> {
+                if (filter.isEmpty()) return true;
+
+                return pw.getWebsiteApp().toLowerCase().contains(filter)
+                        || pw.getLoginName().toLowerCase().contains(filter)
+                        || pw.getTag().name().toLowerCase().contains(filter)
+                        || pw.getSecurity().name().toLowerCase().contains(filter);
+            });
+        });
+
         loadPasswords();
+
     }
 
     // ================= LOAD =================
 
     private void loadPasswords() {
         try {
-            tableView.getItems().setAll(
+            masterData.setAll(
                     passwordDAO.findPrivatePasswords(currentUserId)
             );
         } catch (Exception e) {
@@ -134,6 +163,7 @@ public class MainController {
             showError("Passwörter konnten nicht geladen werden");
         }
     }
+
 
     // ================= ADD =================
 
