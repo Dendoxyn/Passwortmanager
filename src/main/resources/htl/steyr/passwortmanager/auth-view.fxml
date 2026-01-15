@@ -2,19 +2,14 @@
 
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-
-<TabPane xmlns="http://javafx.com/javafx/22"
+<TabPane xmlns="http://javafx.com/javafx/21"
          xmlns:fx="http://javafx.com/fxml/1"
          tabClosingPolicy="UNAVAILABLE"
          styleClass="auth-tabs">
-
-    <tabs>
-        <Tab text="Login">
-            <fx:include source="login-view.fxml"/>
-        </Tab>
-        <Tab text="Registrieren">
-            <fx:include source="register-view.fxml"/>
-        </Tab>
-    </tabs>
+    <Tab text="Login">
+        <fx:include source="login-view.fxml"/>
+    </Tab>
+    <Tab text="Registrieren">
+        <fx:include source="register-view.fxml"/>
+    </Tab>
 </TabPane>
-

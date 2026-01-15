@@ -25,6 +25,7 @@ public class AddPasswordController {
     public ComboBox<SecurityLevel> securityTagCB;
 
     private Password password;
+
     private Stage stage;
 
     // must be set by caller
@@ -48,6 +49,7 @@ public class AddPasswordController {
     @FXML
     private void saveClicked() {
         if (!initPassword()) return;
+        stage = (Stage) usernameTF.getScene().getWindow();
         stage.close();
     }
 

@@ -56,7 +56,7 @@ public class MainController {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Passwort");
                     alert.setHeaderText(pw.getWebsiteApp());
-                    alert.setContentText("[ENT­SCHLÜS­SEL­TES PASSWORT]");
+                    alert.setContentText("ENTSCHLÜSSELTES PASSWORT");
                     alert.showAndWait();
                 });
             }

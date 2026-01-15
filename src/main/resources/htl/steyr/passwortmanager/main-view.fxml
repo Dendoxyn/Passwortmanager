@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="htl.steyr.passwortmanager.controller.MainController">
+<BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.passwortmanager.controller.MainController">
 
    <!-- ================= SIDEBAR ================= -->
    <left>
@@ -21,7 +21,7 @@
             <Insets left="20" right="20" top="20" />
          </padding>
 
-         <Label styleClass="logo" text="DMani2Go" />
+         <Label styleClass="logo" text="DMVault" />
 
          <Separator />
 
@@ -51,10 +51,12 @@
          <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
 
             <columns>
-               <TableColumn fx:id="hostCol" prefWidth="300" text="Name" />
-               <TableColumn fx:id="userCol" prefWidth="200" text="Benutzer" />
-               <TableColumn fx:id="pwCol" prefWidth="200" text="Passwort" />
-               <TableColumn fx:id="actionCol" />
+               <TableColumn fx:id="hostCol" prefWidth="160.00004196166992" text="Website" />
+               <TableColumn fx:id="userCol" prefWidth="176.8000030517578" text="Benutzer" />
+               <TableColumn fx:id="pwCol" prefWidth="169.60006713867188" text="Passwort" />
+               <TableColumn fx:id="actionCol" prefWidth="62.39996337890625" text="👁" />
+               <TableColumn fx:id="secCol" prefWidth="230.4000244140625" text="Sicherheit" />
+               <TableColumn fx:id="tagCol" prefWidth="211.20001220703125" text="Tag" />
             </columns>
 
          </TableView>
