@@ -10,11 +10,15 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 public class MainController {
 
@@ -40,6 +44,8 @@ public class MainController {
 
     @FXML
     public void initialize() {
+
+        disableColumnReordering(tableView);
 
         currentUserId = UserContext.getUserId();
 
@@ -101,17 +107,60 @@ public class MainController {
                 eyeBtn.setOnAction(e -> {
                     Password pw = getTableView().getItems().get(getIndex());
 
-
                     try {
                         byte[] decrypted = CryptoService.getInstance()
                                 .decrypt(pw.getEncryptedPwd());
 
                         String plain = new String(decrypted, StandardCharsets.UTF_8);
 
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Entschlüsseltes Passwort");
-                        alert.setHeaderText(pw.getWebsiteApp());
-                        alert.setContentText(plain);
+                        Alert alert = new Alert(Alert.AlertType.NONE);
+                        alert.setTitle("Passwortdetails");
+
+                        Label title = new Label("🔐 Passwort-Details");
+                        title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
+
+                        Label nameLbl = new Label("Name:");
+                        nameLbl.setStyle("-fx-text-fill: #cbd5f5;");
+
+                        Label nameVal = new Label(pw.getWebsiteApp());
+                        nameVal.setStyle("-fx-text-fill: white;");
+
+                        Label userLbl = new Label("Benutzer:");
+                        userLbl.setStyle("-fx-text-fill: #cbd5f5;");
+
+                        Label userVal = new Label(pw.getLoginName());
+                        userVal.setStyle("-fx-text-fill: white;");
+
+                        Label passLbl = new Label("Passwort:");
+                        passLbl.setStyle("-fx-text-fill: #cbd5f5;");
+
+                        TextField passVal = new TextField(plain);
+                        passVal.setEditable(false);
+                        passVal.setStyle("""
+    -fx-background-color: #020617;
+    -fx-text-fill: white;
+    -fx-border-color: rgba(255,255,255,0.15);
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+""");
+
+
+                        GridPane grid = new GridPane();
+                        grid.setHgap(10);
+                        grid.setVgap(10);
+
+                        grid.addRow(0, nameLbl, nameVal);
+                        grid.addRow(1, userLbl, userVal);
+                        grid.addRow(2, passLbl, passVal);
+
+                        VBox box = new VBox(12, title, grid);
+                        box.setAlignment(Pos.CENTER_LEFT);
+
+                        DialogPane pane = alert.getDialogPane();
+                        pane.setContent(box);
+                        pane.getButtonTypes().add(ButtonType.CLOSE);
+                        pane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/htl/steyr/passwortmanager/auth.css")).toExternalForm());
+
                         alert.showAndWait();
 
                     } catch (Exception ex) {
@@ -119,6 +168,7 @@ public class MainController {
                         showError("Password could not be decrypted");
                     }
                 });
+
             }
 
             @Override
@@ -150,6 +200,19 @@ public class MainController {
         loadPasswords();
 
     }
+
+    private void disableColumnReordering(TableView<?> tableView) {
+
+        tableView.widthProperty().addListener((obs, oldVal, newVal) -> {
+            tableView.lookupAll(".column-header").forEach(header -> {
+                header.setOnMousePressed(Event::consume);
+                header.setOnMouseDragged(Event::consume);
+                header.setOnDragDetected(Event::consume);
+            });
+        });
+    }
+
+
 
     // ================= LOAD =================
 

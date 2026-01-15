@@ -13,8 +13,8 @@ import javafx.scene.input.KeyEvent;
 
 public class LoginController {
 
-    @FXML private TextField loginUsernameField;
-    @FXML private PasswordField loginPasswordField;
+    @FXML private TextField usernameTF;
+    @FXML private PasswordField passwordTF;
     @FXML private Label errorLabel;
 
     private final AuthService authService = new AuthService();
@@ -22,7 +22,7 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        Platform.runLater(() -> loginUsernameField.requestFocus());
+        Platform.runLater(() -> usernameTF.requestFocus());
     }
 
 
@@ -31,8 +31,8 @@ public class LoginController {
 
         hideError();
 
-        String username = loginUsernameField.getText();
-        String password = loginPasswordField.getText();
+        String username = usernameTF.getText();
+        String password = passwordTF.getText();
 
         if (username == null || username.isBlank()
                 || password == null || password.isBlank()) {

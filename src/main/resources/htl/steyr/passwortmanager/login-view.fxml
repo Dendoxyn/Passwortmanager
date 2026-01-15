@@ -1,38 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx/22"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="htl.steyr.passwortmanager.controller.LoginController"
-      spacing="18"
-      alignment="CENTER"
-      styleClass="auth-card"
-      onKeyPressed="#onEnterPressed">
+<?import javafx.scene.layout.*?>
 
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="htl.steyr.passwortmanager.controller.LoginController"
+           stylesheets="@auth.css">
 
-    <padding>
-        <Insets top="36" right="42" bottom="36" left="42"/>
-    </padding>
+    <Pane style="-fx-background-color: linear-gradient(to bottom right, #0f172a, #020617);"/>
 
-    <Label text="Login" styleClass="auth-title"/>
+    <VBox alignment="CENTER" spacing="14" maxWidth="420" styleClass="auth-card">
+        <Label text="Willkommen zurück" styleClass="popup-title"/>
 
-    <TextField fx:id="loginUsernameField"
-               promptText="Username"
-               styleClass="auth-input"/>
+        <Label fx:id="errorLabel"
+               text="Benutzername oder Passwort falsch"
+               visible="false"
+               style="-fx-text-fill: #ef4444; -fx-font-size: 13px;"/>
 
-    <PasswordField fx:id="loginPasswordField"
-                   promptText="Passwort"
-                   styleClass="auth-input"/>
+        <TextField fx:id="usernameTF" promptText="Benutzername" styleClass="auth-input"/>
+        <PasswordField fx:id="passwordTF" promptText="Passwort" styleClass="auth-input"/>
 
-    <Button text="Login"
-            defaultButton="true"
-            onAction="#loginClicked"
-            styleClass="auth-button"/>
-
-    <Label fx:id="errorLabel"
-           visible="false"
-           styleClass="auth-error"/>
-
-</VBox>
+        <Button text="Anmelden"
+                onAction="#loginClicked"
+                maxWidth="Infinity"
+                styleClass="auth-button"/>
+    </VBox>
+</StackPane>
