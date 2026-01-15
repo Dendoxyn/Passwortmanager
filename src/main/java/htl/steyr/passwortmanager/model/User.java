@@ -17,4 +17,7 @@ public class User {
 
     @NonNull
     private final String hashedPwd;
+
+    @NonNull
+    private final byte[] encryptionSalt;
 }

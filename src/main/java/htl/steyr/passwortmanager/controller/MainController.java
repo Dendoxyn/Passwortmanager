@@ -2,6 +2,7 @@ package htl.steyr.passwortmanager.controller;
 
 import htl.steyr.passwortmanager.dao.PasswordDAO;
 import htl.steyr.passwortmanager.model.Password;
+import htl.steyr.passwortmanager.security.UserContext;
 import htl.steyr.passwortmanager.utils.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,12 +18,12 @@ public class MainController {
 
     private final PasswordDAO passwordDAO = new PasswordDAO();
 
-    // TODO: später aus Session/UserContext holen
-    private final int currentUserId = 1;
+    private int currentUserId;
 
     @FXML
     public void initialize() {
 
+        currentUserId = UserContext.getUserId();
 
     //    hostCol.setCellValueFactory(p -> p.getValue().websiteAppProperty());
       //  userCol.setCellValueFactory(p -> p.getValue().loginNameProperty());

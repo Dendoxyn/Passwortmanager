@@ -37,17 +37,20 @@ public class RegisterController {
             boolean success = authService.register(username.trim(), password, confirm);
 
             if (!success) {
-                showError("Registration failed");
+                showError("Username already exists");
                 return;
             }
 
-            showSuccess("Account created successfully");
-            SceneManager.switchTo("main-view.fxml");
+            showSuccess("Account created. Please log in.");
+            SceneManager.switchTo("auth-view.fxml");
 
+        } catch (IllegalArgumentException e) {
+            showError(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             showError("Internal error during registration");
         }
+
     }
 
     private void showError(String message) {

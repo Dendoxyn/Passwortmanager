@@ -50,4 +50,24 @@ public class PasswordService {
 
         return result;
     }
+
+    public void addPrivateOrGroupPassword(Password newPassword) throws Exception {
+
+        if (newPassword == null) {
+            throw new IllegalArgumentException("Password must not be null");
+        }
+
+        // Private password
+        if (newPassword.getGroupId() == null) {
+            passwordDAO.insert(newPassword);
+            return;
+        }
+
+        // Group password
+        if (!groupDAO.groupExists(newPassword.getGroupId())) {
+            throw new IllegalArgumentException("Group does not exist");
+        }
+
+        passwordDAO.insert(newPassword);
+    }
 }

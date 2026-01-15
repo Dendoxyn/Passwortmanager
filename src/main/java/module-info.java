@@ -4,6 +4,7 @@ module htl.steyr.passwortmanager {
     requires java.sql;
     requires static lombok;
     requires de.mkammerer.argon2.nolibs;
+    requires java.desktop;
 
 
     opens htl.steyr.passwortmanager to javafx.fxml;
