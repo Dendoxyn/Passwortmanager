@@ -2,48 +2,82 @@ package htl.steyr.passwortmanager.controller;
 
 import htl.steyr.passwortmanager.dao.PasswordDAO;
 import htl.steyr.passwortmanager.model.Password;
+import htl.steyr.passwortmanager.security.CryptoService;
 import htl.steyr.passwortmanager.security.UserContext;
 import htl.steyr.passwortmanager.utils.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+
+import java.nio.charset.StandardCharsets;
 
 public class MainController {
 
     @FXML private TableView<Password> tableView;
+
     @FXML private TableColumn<Password, String> hostCol;
     @FXML private TableColumn<Password, String> userCol;
     @FXML private TableColumn<Password, String> pwCol;
+    @FXML private TableColumn<Password, String> tagCol;
+    @FXML private TableColumn<Password, String> secCol;
     @FXML private TableColumn<Password, Void> actionCol;
 
     private final PasswordDAO passwordDAO = new PasswordDAO();
 
     private int currentUserId;
 
+    // ================= INIT =================
+
     @FXML
     public void initialize() {
 
         currentUserId = UserContext.getUserId();
 
-    //    hostCol.setCellValueFactory(p -> p.getValue().websiteAppProperty());
-      //  userCol.setCellValueFactory(p -> p.getValue().loginNameProperty());
+        // ===== TEXT COLUMNS =====
 
-        // Passwort immer maskiert anzeigen
-     //   pwCol.setCellValueFactory(p -> p.getValue().dummyPasswordProperty());
+        hostCol.setCellValueFactory(p ->
+                new javafx.beans.property.SimpleStringProperty(
+                        p.getValue().getWebsiteApp()
+                )
+        );
+
+        userCol.setCellValueFactory(p ->
+                new javafx.beans.property.SimpleStringProperty(
+                        p.getValue().getLoginName()
+                )
+        );
+
+        tagCol.setCellValueFactory(p ->
+                new javafx.beans.property.SimpleStringProperty(
+                        p.getValue().getTag().name()
+                )
+        );
+
+        secCol.setCellValueFactory(p ->
+                new javafx.beans.property.SimpleStringProperty(
+                        p.getValue().getSecurity().name()
+                )
+        );
+
+        // ===== PASSWORD COLUMN (MASKED) =====
+
         pwCol.setCellFactory(col -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty ? null : "••••••••");
+
+                if (empty) {
+                    setText(null);
+                } else {
+                    Password pw = getTableView().getItems().get(getIndex());
+                    int len = Math.min(12, pw.getEncryptedPwd().length);
+                    setText("•".repeat(len));
+                }
             }
         });
 
-        // Eye-Button-Spalte
+        // ===== ACTION COLUMN (EYE BUTTON) =====
+
         actionCol.setCellFactory(col -> new TableCell<>() {
 
             private final Button eyeBtn = new Button("👁");
@@ -52,12 +86,22 @@ public class MainController {
                 eyeBtn.setOnAction(e -> {
                     Password pw = getTableView().getItems().get(getIndex());
 
-                    // hier nur zum Testen – KEIN Klartext speichern!
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Passwort");
-                    alert.setHeaderText(pw.getWebsiteApp());
-                    alert.setContentText("ENTSCHLÜSSELTES PASSWORT");
-                    alert.showAndWait();
+                    try {
+                        byte[] decrypted = CryptoService.getInstance()
+                                .decrypt(pw.getEncryptedPwd());
+
+                        String plain = new String(decrypted, StandardCharsets.UTF_8);
+
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Entschlüsseltes Passwort");
+                        alert.setHeaderText(pw.getWebsiteApp());
+                        alert.setContentText(plain);
+                        alert.showAndWait();
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        showError("Password could not be decrypted");
+                    }
                 });
             }
 
@@ -71,6 +115,8 @@ public class MainController {
         loadPasswords();
     }
 
+    // ================= LOAD =================
+
     private void loadPasswords() {
         try {
             tableView.getItems().setAll(
@@ -82,10 +128,7 @@ public class MainController {
         }
     }
 
-    private void showError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
-        alert.showAndWait();
-    }
+    // ================= ADD =================
 
     public void createNewPassword(ActionEvent event) {
 
@@ -93,16 +136,16 @@ public class MainController {
             AddPasswordController ctrl =
                     SceneManager.showPopupWithController("add-password.fxml", "Add new Password");
 
-
             Password result = ctrl.getPassword();
+
+            // user pressed cancel
+            if (result == null) return;
 
             System.out.println("Current userId = " + UserContext.getUserId());
             System.out.println("Password userId = " + result.getUserId());
 
-            if (result != null) {
-                passwordDAO.insert(result);
-                loadPasswords();
-            }
+            passwordDAO.insert(result);
+            loadPasswords();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,6 +153,10 @@ public class MainController {
         }
     }
 
+    // ================= UTILS =================
 
-
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
+        alert.showAndWait();
+    }
 }
