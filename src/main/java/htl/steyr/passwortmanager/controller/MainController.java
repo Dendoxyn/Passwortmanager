@@ -7,6 +7,7 @@ import htl.steyr.passwortmanager.security.UserContext;
 import htl.steyr.passwortmanager.utils.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 
 import java.nio.charset.StandardCharsets;
@@ -82,9 +83,15 @@ public class MainController {
 
             private final Button eyeBtn = new Button("👁");
 
+
             {
+
+                setAlignment(Pos.CENTER);
+                setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+
                 eyeBtn.setOnAction(e -> {
                     Password pw = getTableView().getItems().get(getIndex());
+
 
                     try {
                         byte[] decrypted = CryptoService.getInstance()
