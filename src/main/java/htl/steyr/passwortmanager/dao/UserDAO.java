@@ -50,7 +50,7 @@ public class UserDAO {
     public UserAuthData getAuthDataByUsername(String username) throws Exception {
 
         String sql = """
-            SELECT id, username, hashedPwd, encryptionSalt
+            SELECT userId, username, hashedPwd, encryptionSalt
             FROM User
             WHERE username = ?
         """;
@@ -63,7 +63,7 @@ public class UserDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new UserAuthData(
-                            rs.getInt("id"),
+                            rs.getInt("userId"),
                             rs.getString("username"),
                             rs.getString("hashedPwd"),
                             rs.getBytes("encryptionSalt")
