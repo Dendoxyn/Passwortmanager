@@ -129,3 +129,7 @@
     -fx-padding: 10 12;
 }
 
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 30, 0, 0, 12);
+}
+

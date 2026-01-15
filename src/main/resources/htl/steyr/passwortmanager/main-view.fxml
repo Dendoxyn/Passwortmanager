@@ -3,50 +3,69 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane stylesheets="@auth.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="htl.steyr.passwortmanager.controller.MainController">
 
-   <!-- Sidebar -->
+   <!-- ===== SIDEBAR ===== -->
    <left>
-      <VBox prefWidth="220" spacing="12" styleClass="sidebar">
+      <VBox prefWidth="200" spacing="14" styleClass="sidebar">
          <padding>
-            <Insets bottom="20" left="20" right="20" top="20" />
+            <Insets bottom="24" left="16" right="16" top="24" />
          </padding>
 
-         <Label styleClass="logo" text="DMVault" />
+         <ImageView fx:id="logoImg" fitWidth="140" preserveRatio="true" />
+
+         <Separator />
+
          <Button styleClass="nav-btn" text="Passwörter" />
          <Button styleClass="nav-btn" text="Einstellungen" />
       </VBox>
    </left>
 
-   <!-- Header -->
+   <!-- ===== HEADER ===== -->
    <top>
-      <HBox alignment="CENTER_RIGHT" spacing="12">
+      <HBox alignment="CENTER_LEFT" spacing="20">
          <padding>
-            <Insets bottom="16" left="16" right="16" top="16" />
+            <Insets bottom="14" left="24" right="24" top="14" />
          </padding>
 
-         <TextField fx:id="searchTF" prefWidth="260" promptText="Suchen..." styleClass="auth-input" />
+         <Label style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" text="Meine Passwörter" />
+
+         <Region HBox.hgrow="ALWAYS" />
+
+         <TextField fx:id="searchTF" prefWidth="280" promptText="Suchen..." styleClass="auth-input" />
+
+         <ImageView fx:id="teamImg" fitHeight="36" preserveRatio="true" />
       </HBox>
    </top>
 
-   <!-- Table -->
+   <!-- ===== TABLE ===== -->
    <center>
-      <TableView fx:id="tableView">
-         <columns>
-            <TableColumn fx:id="hostCol" editable="false" prefWidth="160" resizable="false" text="Name" />
-            <TableColumn fx:id="userCol" editable="false" prefWidth="180" resizable="false" text="Benutzer" />
-            <TableColumn fx:id="pwCol" editable="false" prefWidth="170" resizable="false" sortable="false" text="Passwort" />
-            <TableColumn fx:id="actionCol" editable="false" prefWidth="60" resizable="false" sortable="false" text="👁" />
-            <TableColumn fx:id="secCol" editable="false" prefWidth="220" resizable="false" text="Sicherheit" />
-            <TableColumn fx:id="tagCol" editable="false" prefWidth="210" resizable="false" sortable="false" text="Tag" />
-         </columns>
-      </TableView>
+      <VBox>
+         <padding>
+            <Insets bottom="24" left="24" right="24" top="16" />
+         </padding>
+
+         <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
+            <columns>
+               <TableColumn fx:id="hostCol" editable="false" prefWidth="160" text="Name" />
+               <TableColumn fx:id="userCol" editable="false" prefWidth="180" text="Benutzer" />
+               <TableColumn fx:id="pwCol" editable="false" prefWidth="170" sortable="false" text="Passwort" />
+               <TableColumn fx:id="actionCol" editable="false" prefWidth="60" sortable="false" text="👁" />
+               <TableColumn fx:id="secCol" editable="false" prefWidth="200" text="Sicherheit" />
+               <TableColumn fx:id="tagCol" editable="false" prefWidth="180" sortable="false" text="Tag" />
+            </columns>
+         </TableView>
+      </VBox>
    </center>
+
 </BorderPane>

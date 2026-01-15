@@ -5,6 +5,8 @@ import htl.steyr.passwortmanager.model.Password;
 import htl.steyr.passwortmanager.security.CryptoService;
 import htl.steyr.passwortmanager.security.UserContext;
 import htl.steyr.passwortmanager.utils.SceneManager;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,6 +16,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -22,6 +25,8 @@ import java.util.Objects;
 
 public class MainController {
 
+    @FXML public ImageView logoImg;
+    @FXML public ImageView teamImg;
     @FXML private TableView<Password> tableView;
 
     @FXML private TableColumn<Password, String> hostCol;
@@ -45,7 +50,18 @@ public class MainController {
     @FXML
     public void initialize() {
 
-        disableColumnReordering(tableView);
+        logoImg.setImage(new Image(
+                Objects.requireNonNull(getClass().getResource("/htl/steyr/passwortmanager/img/logo.png")).toExternalForm()
+        ));
+
+        teamImg.setImage(new Image(
+                Objects.requireNonNull(getClass().getResource("/htl/steyr/passwortmanager/img/team.png")).toExternalForm()
+        ));
+
+
+        lockTableLayout();
+        configureSortableColumns();
+
 
         currentUserId = UserContext.getUserId();
 
@@ -200,6 +216,40 @@ public class MainController {
         loadPasswords();
 
     }
+
+    private void lockTableLayout() {
+
+        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
+        for (TableColumn<?, ?> col : tableView.getColumns()) {
+            col.setResizable(false);
+            col.setReorderable(false);
+        }
+
+        tableView.lookupAll(".column-header").forEach(h -> h.setOnMouseClicked(Event::consume));
+    }
+
+    private void configureSortableColumns() {
+
+        hostCol.setSortable(true);
+        userCol.setSortable(true);
+        tagCol.setSortable(true);
+        secCol.setSortable(true);
+
+
+        pwCol.setSortable(false);
+        actionCol.setSortable(false);
+
+        tableView.getSortOrder().clear();
+        tableView.setSortPolicy(tv -> {
+            if (tv.getSortOrder().size() > 1) {
+                TableColumn<Password, ?> first = tv.getSortOrder().getFirst();
+                tv.getSortOrder().setAll(first);
+            }
+            return true;
+        });
+    }
+
 
     private void disableColumnReordering(TableView<?> tableView) {
 
