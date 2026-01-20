@@ -10,9 +10,9 @@ import javafx.scene.control.TextField;
 
 public class RegisterController {
 
-    @FXML private TextField registerUsernameField;
-    @FXML private PasswordField registerPasswordField;
-    @FXML private PasswordField confirmPasswordField;
+    @FXML private TextField usernameTF;
+    @FXML private PasswordField passwordPF;
+    @FXML private PasswordField confirmPasswordPF;
     @FXML private Label errorLabel;
 
     private final AuthService authService = new AuthService();
@@ -22,9 +22,9 @@ public class RegisterController {
 
         hideError();
 
-        String username = registerUsernameField.getText();
-        String password = registerPasswordField.getText();
-        String confirm = confirmPasswordField.getText();
+        String username = usernameTF.getText();
+        String password = passwordPF.getText();
+        String confirm = confirmPasswordPF.getText();
 
         if (username == null || username.isBlank()
                 || password == null || password.isBlank()

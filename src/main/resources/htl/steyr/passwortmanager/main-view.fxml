@@ -27,7 +27,7 @@
          <Separator />
 
          <Button styleClass="nav-btn" text="Passwörter" />
-         <Button styleClass="nav-btn" text="Einstellungen" />
+         <Button styleClass="nav-btn" text="Passwort hinzufügen" onAction="#createNewPassword" />
       </VBox>
    </left>
 

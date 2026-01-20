@@ -12,6 +12,7 @@
 
     <VBox alignment="CENTER" spacing="14" maxWidth="420" styleClass="auth-card">
         <Label text="Neuen Account erstellen" styleClass="popup-title"/>
+        <Label fx:id="errorLabel"/>
 
         <TextField fx:id="usernameTF" promptText="Benutzername" styleClass="auth-input"/>
         <PasswordField fx:id="passwordPF" promptText="Passwort" styleClass="auth-input"/>
